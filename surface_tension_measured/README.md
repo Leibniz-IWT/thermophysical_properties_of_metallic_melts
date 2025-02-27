@@ -4,7 +4,9 @@ This repository contains surface tension values of metallic melts measured at th
 All measured data is contained in the file database.json
 You can read this file in Python, Matlab or other languages to access the data or you can use the property browser provided in this folder which can be run in python. Just download the python file, the database.json and put both in a folder. You will then get a user interface which allows you to browse data and export data as a CSV file.
 
-![grafik](https://github.com/user-attachments/assets/f1d7d129-1cb9-4088-bf6c-4656bcc907f5)
+This is what the user interface looks like:
+
+![grafik](https://github.com/user-attachments/assets/f1d7d129-1cb9-4088-bf6c-4656bcc907f5 = 250x)
 
 # Methodology
 All values in this database are measured through the oscillating droplet method with a molten metal droplet generator. You can find more information on this method in the following papers:
