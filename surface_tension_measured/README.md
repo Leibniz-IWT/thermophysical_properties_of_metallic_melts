@@ -6,7 +6,7 @@ You can read this file in Python, Matlab or other languages to access the data o
 
 This is what the user interface looks like:
 
-![grafik](https://github.com/user-attachments/assets/f1d7d129-1cb9-4088-bf6c-4656bcc907f5 = 250x)
+![grafik](https://github.com/user-attachments/assets/f1d7d129-1cb9-4088-bf6c-4656bcc907f5 {width=200px} )
 
 # Methodology
 All values in this database are measured through the oscillating droplet method with a molten metal droplet generator. You can find more information on this method in the following papers:
