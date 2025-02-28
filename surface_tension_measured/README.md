@@ -9,11 +9,15 @@ This is what the user interface looks like:
 ![grafik](https://github.com/user-attachments/assets/00f41b43-6acf-4542-9d1c-61d3a033fa7e)
 
 # Methodology
-All values in this database are measured through the oscillating droplet method with a molten metal droplet generator. You can find more information on this method in the following papers:
+All values in this database are measured through the oscillating droplet method with a molten metal droplet generator. You can find more information on this method in the following publications:
 
 Fahimi, K., Mädler, L. & Ellendt, N. Measurement of surface tension with free-falling oscillating molten metal droplets: a numerical and experimental investigation. Exp Fluids 64, 133 (2023). https://doi.org/10.1007/s00348-023-03678-9
 
 Fahimi, K., Mädler, L. & Ellendt, N. Exploring droplet oscillation dynamics in surface tension measurements. Exp Fluids 65, 184 (2024). https://doi.org/10.1007/s00348-024-03926-6
+
+# More references for measured data:
+Al-Si-Fe:
+Tisha, L.S., Toenjes, A. and Ellendt, N. (2025), Impact of Iron Contamination on Liquid Properties and Microstructural Evolution in AlSi20. Adv. Eng. Mater. 2401541. https://doi.org/10.1002/adem.202401541
 
 # Acknowledgement:
 The authors would like to thank the German Research Foundation (DFG) for the financial support of the project under Project Number El737/3-1. 
