@@ -2,8 +2,7 @@ import json
 import matplotlib.pyplot as plt
 import numpy as np
 import tkinter as tk
-from tkinter import ttk
-from tkinter import filedialog
+from tkinter import ttk, filedialog
 import csv
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
@@ -30,8 +29,8 @@ def save_to_csv(data, alloy_key):
             else:
                 writer.writerow([key, value])
 
-def plot_surface_tension(data, alloy_key, frame):
-    for widget in frame.winfo_children():
+def plot_surface_tension(data, alloy_key, plot_frame):
+    for widget in plot_frame.winfo_children():
         widget.destroy()
     
     alloy_data = data[alloy_key]
@@ -55,11 +54,12 @@ def plot_surface_tension(data, alloy_key, frame):
     ax.legend()
     ax.grid(True)
     
-    canvas = FigureCanvasTkAgg(fig, master=frame)
+    canvas = FigureCanvasTkAgg(fig, master=plot_frame)
     canvas.draw()
     canvas.get_tk_widget().pack()
     
     info_text = f"Liquidus Temperature: {alloy_data['liquidus']}°C\n" \
+                f"Category: {alloy_data['category']}\n" \
                 f"Model: {alloy_data['model']['type']}\n" \
                 f"sigma_L: {sigma_L}\n" \
                 f"dsigma_dT: {dsigma_dT}\n" \
@@ -67,34 +67,63 @@ def plot_surface_tension(data, alloy_key, frame):
                 f"Funding: {alloy_data['funding']}\n" \
                 f"Reference: {alloy_data['reference']}"
     
-    tk.Label(frame, text=info_text, justify=tk.LEFT, wraplength=500).pack(pady=5)
+    tk.Label(plot_frame, text=info_text, justify=tk.LEFT, wraplength=500).pack(pady=5)
     
-    save_button = tk.Button(frame, text="Download CSV", command=lambda: save_to_csv(data, alloy_key))
+    save_button = tk.Button(plot_frame, text="Download CSV", command=lambda: save_to_csv(data, alloy_key))
     save_button.pack(pady=5)
 
-def on_select(event, data, combo, frame):
-    selected_alloy = combo.get()
+def update_category_list(data, category_combo):
+    categories = sorted(set(entry['category'] for entry in data.values()))
+    category_combo["values"] = categories
+
+def update_alloy_list(event, data_var, category_combo, alloy_combo):
+    data = data_var["data"]
+    selected_category = category_combo.get()
+    if selected_category:
+        alloys = [data[key]['alloy'] for key in data if data[key]['category'] == selected_category]
+        alloy_combo["values"] = alloys
+        alloy_combo.set("")
+
+def on_select(event, data_var, alloy_combo, plot_frame):
+    data = data_var["data"]
+    selected_alloy = alloy_combo.get()
     alloy_key = next((key for key in data if data[key]['alloy'] == selected_alloy), None)
     if alloy_key:
-        plot_surface_tension(data, alloy_key, frame)
+        plot_surface_tension(data, alloy_key, plot_frame)
+
+def load_new_database(root, data_var, category_combo, alloy_combo):
+    file_path = filedialog.askopenfilename(filetypes=[("JSON files", "*.json")])
+    if file_path:
+        data = load_data(file_path)
+        data_var["data"] = data
+        update_category_list(data, category_combo)
+        alloy_combo["values"] = []
+        category_combo.set("")
+        alloy_combo.set("")
 
 def main():
-    file_path = "database.json"  # Update with actual file path if needed
-    data = load_data(file_path)
-    
     root = tk.Tk()
     root.title("Select Alloy")
     
-    tk.Label(root, text="Select an alloy:").pack(pady=5)
+    data_var = {"data": {}}
     
-    alloy_names = [data[key]['alloy'] for key in data]
-    combo = ttk.Combobox(root, values=alloy_names, state="readonly")
-    combo.pack(pady=5)
+    control_frame = tk.Frame(root)
+    control_frame.pack(pady=5)
     
-    frame = tk.Frame(root)
-    frame.pack(pady=10)
+    load_button = tk.Button(control_frame, text="Load Database", command=lambda: load_new_database(root, data_var, category_combo, alloy_combo))
+    load_button.pack(side=tk.LEFT, padx=5)
     
-    combo.bind("<<ComboboxSelected>>", lambda event: on_select(event, data, combo, frame))
+    category_combo = ttk.Combobox(control_frame, state="readonly")
+    category_combo.pack(side=tk.LEFT, padx=5)
+    
+    alloy_combo = ttk.Combobox(control_frame, state="readonly")
+    alloy_combo.pack(side=tk.LEFT, padx=5)
+    
+    plot_frame = tk.Frame(root)
+    plot_frame.pack(pady=10)
+    
+    category_combo.bind("<<ComboboxSelected>>", lambda event: update_alloy_list(event, data_var, category_combo, alloy_combo))
+    alloy_combo.bind("<<ComboboxSelected>>", lambda event: on_select(event, data_var, alloy_combo, plot_frame))
     
     root.mainloop()
 
