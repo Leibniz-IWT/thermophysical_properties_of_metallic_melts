@@ -16,7 +16,7 @@ Fahimi, K., Mädler, L. & Ellendt, N. Measurement of surface tension with free-f
 Fahimi, K., Mädler, L. & Ellendt, N. Exploring droplet oscillation dynamics in surface tension measurements. Exp Fluids 65, 184 (2024). https://doi.org/10.1007/s00348-024-03926-6
 
 # More references for measured data:
-Al-Si-Fe:
+Al-Si-Fe:<br>
 Tisha, L.S., Toenjes, A. and Ellendt, N. (2025), Impact of Iron Contamination on Liquid Properties and Microstructural Evolution in AlSi20. Adv. Eng. Mater. 2401541. https://doi.org/10.1002/adem.202401541
 
 # Acknowledgement:
