@@ -58,8 +58,8 @@ def plot_surface_tension(data, alloy_key, plot_frame):
     canvas.draw()
     canvas.get_tk_widget().pack()
     
-    info_text = f"Liquidus Temperature: {alloy_data['liquidus']}°C\n" \
-                f"Category: {alloy_data['category']}\n" \
+    info_text = f"Category: {alloy_data['category']}\n" \
+                f"Liquidus Temperature: {alloy_data['liquidus']}°C\n" \
                 f"Model: {alloy_data['model']['type']}\n" \
                 f"sigma_L: {sigma_L}\n" \
                 f"dsigma_dT: {dsigma_dT}\n" \
